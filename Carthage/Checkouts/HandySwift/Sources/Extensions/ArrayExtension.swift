@@ -1,7 +1,4 @@
 //
-//  ArrayExtension.swift
-//  HandySwift
-//
 //  Created by Cihat Gündüz on 26.12.15.
 //  Copyright © 2015 Flinesoft. All rights reserved.
 //
@@ -13,7 +10,8 @@ extension Array {
     ///
     /// - Returns: A random element from the array or `nil` if empty.
     public var sample: Element? {
-        guard let randomIndex = Int(randomBelow: count) else { return nil }
+        guard !isEmpty else { return nil }
+        let randomIndex = Int.random(in: 0..<count)
         return self[randomIndex]
     }
 
@@ -23,7 +21,7 @@ extension Array {
     ///   - size: The number of random elements wanted.
     /// - Returns: An array with the given number of random elements or `nil` if empty.
     public func sample(size: Int) -> [Element]? {
-        if isEmpty { return nil }
+        guard !isEmpty else { return nil }
 
         var sampleElements: [Element] = []
         size.times { sampleElements.append(sample!) }
@@ -82,10 +80,10 @@ extension Array {
             tmp.removeAll(keepingCapacity: true)
             tmp.append(contentsOf: self[low..<high])
 
-            var i = 0, j = mid - low
+            var i = 0, j = mid - low // swiftlint:disable:this identifier_name
             let iMax = j, jMax = tmp.count
 
-            for k in low..<high {
+            for k in low..<high { // swiftlint:disable:this identifier_name
                 let tmpPosIsJ = i == iMax || (j != jMax && areInIncreasingOrder(tmp[j], tmp[i]))
                 self[k] = tmp[tmpPosIsJ ? j : i]
 
@@ -97,7 +95,7 @@ extension Array {
             }
         }
 
-        let n = count
+        let n = count // swiftlint:disable:this identifier_name
         var size = 1
         while size < n {
             var low = 0

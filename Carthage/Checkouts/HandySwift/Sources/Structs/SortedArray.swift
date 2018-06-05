@@ -1,7 +1,4 @@
 //
-//  SortedArray.swift
-//  HandySwift
-//
 //  Created by Cihat Gündüz on 26.12.15.
 //  Copyright © 2015 Flinesoft. All rights reserved.
 //
@@ -52,8 +49,8 @@ public struct SortedArray<Element: Comparable> {
     public func index(where predicate: (Element) -> Bool) -> Int? {
         // cover trivial cases
         guard !array.isEmpty else { return nil }
-        if let first = array.first, predicate(first) { return array.startIndex }
-        if let last = array.last, !predicate(last) { return nil }
+        if let first = array.first, predicate(first) { return array.startIndex } // swiftlint:disable:this if_as_guard
+        if let last = array.last, !predicate(last) { return nil } // swiftlint:disable:this if_as_guard
 
         // binary search for first matching element
         var foundMatch = false
@@ -148,3 +145,27 @@ public struct SortedArray<Element: Comparable> {
         internalArray.remove(at: index)
     }
 }
+
+extension SortedArray: Collection { // swiftlint:disable missing_docs
+    public typealias Index = Array<Element>.Index
+
+    public func index(after index: Int) -> Int {
+        return internalArray.index(after: index)
+    }
+
+    public subscript(position: Int) -> Element {
+        return internalArray[position]
+    }
+
+    public var startIndex: Int {
+        return internalArray.startIndex
+    }
+
+    public var endIndex: Int {
+        return internalArray.endIndex
+    }
+
+    public func sorted() -> [Element] {
+        return internalArray
+    }
+} // swiftlint:enable missing_docs

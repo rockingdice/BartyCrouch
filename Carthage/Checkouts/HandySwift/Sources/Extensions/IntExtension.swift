@@ -1,7 +1,4 @@
 //
-//  IntegerTypeExtension.swift
-//  HandySwift
-//
 //  Created by Cihat Gündüz on 18.12.15.
 //  Copyright © 2015 Flinesoft. All rights reserved.
 //
@@ -9,6 +6,7 @@
 import Foundation
 
 extension Int {
+    @available(*, obsoleted: 4.2, message: "Use `Int.random(in: 0..<upperLimit)` instead.")
     /// Initializes a new `Int ` instance with a random value below a given `Int`.
     ///
     /// - Parameters:

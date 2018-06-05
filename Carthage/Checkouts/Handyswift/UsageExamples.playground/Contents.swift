@@ -235,3 +235,90 @@ randomWord
 frequencyTable.sample(size: 6)
 let randomWords = frequencyTable.sample(size: 6)!.map{ $0.word }
 randomWords
+
+
+//: ## Regex
+//: `Regex` is a swifty regex engine built on top of the `NSRegularExpression` api.
+//: ### init(_:options:)
+//: Initialize with pattern and, optionally, options.
+
+do {
+    let regexWithoutOptions = try Regex("(Phil|John), [d]{4}")
+    regexWithoutOptions
+
+    let options: Regex.Options = [.ignoreCase, .anchorsMatchLines, .dotMatchesLineSeparators, .ignoreMetacharacters]
+    let regexWithOptions = try Regex("(Phil|John), [d]{4}", options: options)
+    regexWithOptions
+} catch {
+    // Regex expression was invalid
+}
+
+//: ### regex.matches(_:)
+//: Checks whether regex matches string
+let regexMatchesString = regex.matches("Phil, 1991")
+regexMatchesString
+
+//: ### regex.matches(in:)
+//: Returns all matches
+let matches = regex.matches(in: "Phil, 1991 and John, 1985")
+let match = matches.first!
+
+//: ### regex.firstMatch(in:)
+//: Returns first match if any
+let firstMatch = regex.firstMatch(in: "Phil, 1991 and John, 1985")
+firstMatch
+
+//: ### regex.replacingMatches(in:with:count:)
+//: Replaces all matches in a string with a template string, up to the a maximum of matches (count).
+let replacedString = regex.replacingMatches(in: "Phil, 1991 and John, 1985", with: "$1 was born in $2", count: 2)
+replacedString
+
+//: ### match.string
+//: Returns the captured string
+let matchString = match.string
+matchString
+
+//: ### match.range
+//: Returns the range of the captured string within the base string
+let matchRange = match.range
+matchRange
+
+//: ### match.captures
+//: Returns the capture groups of the match
+let captures = match.captures
+captures
+
+//: ### match.string(applyingTemplate:)
+//: Replaces the matched string with a template string
+let stringWithTemplateApplied = match.string(applyingTemplate: "$1 was born in $2")
+stringWithTemplateApplied
+
+
+//: ## Weak
+//: `Weak` is a wrapper to store weak references to a `Wrapped` instance.
+//: ### Weak(_:)
+//: Initialize with an object reference.
+let text: NSString = "Hello World!"
+var weak = Weak(text)
+print(weak)
+
+//: ### Accessing inner Reference
+//: Access the inner wrapped reference with the `value` property.
+print(weak.value!)
+
+//: ### NilLiteralExpressible Conformance
+//: Create a `Weak` wrapper by assigning nil to the value.
+weak = nil
+print(weak)
+
+
+//: ## Unowned
+//: `Unowned` is a wrapper to store unowned references to a `Wrapped` instance.
+//: ### Unowned(_:)
+//: Initialize with an object reference.
+var unowned = Unowned(text)
+print(unowned)
+
+//: ### Accessing inner Reference
+//: Access the inner wrapped reference with the `value` property.
+print(unowned.value)

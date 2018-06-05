@@ -1,7 +1,4 @@
 //
-//  StringExtension.swift
-//  HandySwift
-//
 //  Created by Cihat Gündüz on 26.12.15.
 //  Copyright © 2015 Flinesoft. All rights reserved.
 //
@@ -44,7 +41,7 @@ extension String {
     ///
     /// - Returns: A random character from the String or `nil` if empty.
     public var sample: Character? {
-        return isEmpty ? nil : self[index(startIndex, offsetBy: Int(randomBelow: count)!)]
+        return isEmpty ? nil : self[index(startIndex, offsetBy: Int.random(in: 0..<count))]
     }
 
     /// Returns a given number of random characters from the String.
@@ -53,7 +50,7 @@ extension String {
     ///   - size: The number of random characters wanted.
     /// - Returns: A String with the given number of random characters or `nil` if empty.
     public func sample(size: Int) -> String? {
-        if isEmpty { return nil }
+        guard !isEmpty else { return nil }
 
         var sampleElements = String()
         size.times { sampleElements.append(sample!) }
@@ -73,6 +70,6 @@ extension String {
         case numeric
         case alphabetic
         case alphaNumeric
-        case allCharactersIn(String)
+        case allCharactersIn(String) // swiftlint:disable:this identifier_name
     }
 }

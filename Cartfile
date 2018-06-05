@@ -5,7 +5,7 @@ github "Dschee/CommandLine" "master"
 github "Dschee/Polyglot" "master"
 
 # Handy Swift features that didn't make it into the Swift standard library.
-github "Flinesoft/HandySwift" ~> 2.4
+github "Flinesoft/HandySwift" "work/xcode-10"
 
 # Delightful console output for Swift developers.
 github "onevcat/Rainbow" ~> 3.1
