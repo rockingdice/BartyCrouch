@@ -301,7 +301,7 @@ public class CommandLineActor {
             }
 
             stringsFileUpdater.incrementallyUpdateKeys(
-                withStringsFileAtPath: extractedLocalizableStringsFilePath, addNewValuesAsEmpty: !defaultToKeys,
+                withStringsFileAtPath: extractedLocalizableStringsFilePath, addNewValuesAsEmpty: !defaultToKeys, includes: [],
                 override: override, keepExistingKeys: additive, overrideComments: overrideComments, sortByKeys: sortByKeys,
                 keepWhitespaceSurroundings: unstripped
             )

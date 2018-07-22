@@ -15,7 +15,7 @@ public class GenStringsCommander: CodeCommander {
         let findFilesResult = findFiles(in: codeDirectoryPath)
         let customFunctionArgs = customFunction != nil ? ["-s", "\(customFunction!)"] : []
         let exportFileResult = Commander.shared.run(
-            command: "/usr/bin/genstrings",
+            command: "/usr/local/bin/genstrings2",
             arguments: findFilesResult.outputs + ["-o", stringsFilePath] + customFunctionArgs
         )
         return findFilesResult.exitCode == 0 && exportFileResult.exitCode == 0

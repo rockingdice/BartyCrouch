@@ -14,6 +14,9 @@ public class StringsFileUpdater {
     // MARK: - Stored Type Properties
     public static let defaultIgnoreKeys = ["#bartycrouch-ignore!", "#bc-ignore!", "#i!"]
 
+    // MARK: - Includes Types
+    public static let defaultIncludeKeys = ["#a!"]
+    
     // MARK: - Stored Instance Properties
     let path: String
     var oldContentString: String = ""
@@ -33,7 +36,7 @@ public class StringsFileUpdater {
     // Updates the keys of this instances strings file with those of the given strings file.
     public func incrementallyUpdateKeys(
         withStringsFileAtPath otherStringFilePath: String,
-        addNewValuesAsEmpty: Bool, ignoreBaseKeysAndComment ignores: [String] = defaultIgnoreKeys,
+        addNewValuesAsEmpty: Bool, ignoreBaseKeysAndComment ignores: [String] = defaultIgnoreKeys, includes: [String] = defaultIncludeKeys,
         override: Bool = false, updateCommentWithBase: Bool = true, keepExistingKeys: Bool = false,
         overrideComments: Bool = false, sortByKeys: Bool = false, keepWhitespaceSurroundings: Bool = false
     ) {
@@ -59,9 +62,14 @@ public class StringsFileUpdater {
                 for newTranslation in newTranslations {
                     // skip keys marked for ignore
                     guard !newTranslation.value.containsAny(of: ignores) else { continue }
+                    
 
                     // Skip keys that have been marked for ignore in comment
                     if let newComment = newTranslation.comment, newComment.containsAny(of: ignores) { continue }
+                    
+                    //
+                    if includes.count != 0, let newComment = newTranslation.comment, !newComment.containsAny(of: includes) { continue }
+                    
 
                     let oldTranslation = oldTranslations.first { oldKey, _, _, _ in oldKey == newTranslation.key }
 
